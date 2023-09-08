@@ -5,21 +5,9 @@ package threefoursum;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class ThreeFourSum {
-    public static boolean allDistinct(int[] arr) {
-        HashSet<Integer> uniqueValues = new HashSet<>();
-        for (int num : arr) {
-            if (uniqueValues.contains(num)) {
-                return false;
-            }
-            uniqueValues.add(num);
-        }
-        return true;
-    }
-
     // Three Cubic
     public static int[] threeSumCubic(int[] x) {
         int n = x.length;
@@ -86,13 +74,6 @@ public class ThreeFourSum {
         return null;
     }
 
-    // [1, 2, 3, 4, 5, -5, (-5)]
-    // a = 1, b = 2, c = -3, k = null | i = 0, j = 1
-    // a = 1, b = 3, c = -4, k = null | i = 0, j = 2
-    // a = 1, b = 4, c = -5, k = 5    | i = 0, j = 3 *
-    // a = 1, b = 5, c = -6, k = null | i = 0, j = 4
-    // a = 1, b = -5, c = 4, k = 3 | i = 0, j = 5
-
     // Three HashMap without comparison (j < k)
     public static int[] threeSumHashMapNoComparison(int[] x) {
         int n = x.length;
@@ -122,14 +103,14 @@ public class ThreeFourSum {
         int[] y = x.clone();
         Arrays.sort(y);
         for (int i = 0; i < n; ++i) {
-            int a = x[i];
+            int a = y[i];
             for (int j = i+1; j < n; ++j) {
-                int b = x[j];
+                int b = y[j];
                 int left = j + 1;
-                int right = n;
+                int right = n - 1;
                 while (left < right) {
-                    int c = x[left];
-                    int d = x[right];
+                    int c = y[left];
+                    int d = y[right];
                     if (a + b + c + d == 0) {
                         return new int[] { a, b, c, d };
                     }
@@ -169,14 +150,12 @@ public class ThreeFourSum {
     public static int[] fourSumHashMap(int[] x) {
         int n = x.length;
         HashMap<Integer, Integer[]> H = new HashMap<Integer, Integer[]>();
-
         for (int i = 0; i < n; ++i) {
             for (int j = i+1; j < n; ++j) {
                 Integer[] pair = {i, j};
                 H.put(x[i] + x[j], pair);
             }
         }
-
         for (int i = 0; i < n; ++i) {
             int a = x[i];
             for (int j = i+1; j < n; ++j) {
@@ -185,7 +164,7 @@ public class ThreeFourSum {
                 if (values != null) {
                     Integer k = values[0];
                     Integer l = values[1];
-                    if (k != null && l != null && k == 0 && l == 0 && j < k) {
+                    if (k != null && l != null && k != 0 && l != 0 && j < k) {
                         int c = x[k];
                         int d = x[l];
                         System.out.println("HERE");
@@ -229,41 +208,48 @@ public class ThreeFourSum {
     public static void main(String[] args) {
         validateArgs(args);
 
+        boolean isFourSum = false;
+
         int[] x = readData();
         int[] y = null;
 
-        if (!allDistinct(x)) {
-            System.out.println("null");
-            System.exit(0);
-        }
-
-        if ("t_cubic".equals(args[0])) {
-            y = threeSumCubic(x);
-        }
-        else if ("t_quadratic".equals(args[0])) {
-            y = threeSumQuadratic(x);
-        }
-        else if ("t_hashmap".equals(args[0])) {
-            y = threeSumHashMap(x);
-        }
-        else if ("t_hashmap_nocomp".equals(args[0])) {
-            y = threeSumHashMapNoComparison(x);
-        }
-        else if ("f_cubic".equals(args[0])) {
-            y = fourSumCubic(x);
-        }
-        else if ("f_quartic".equals(args[0])) {
-            y = fourSumQuartic(x);
-        }
-        else if ("f_hashmap".equals(args[0])) {
-            y = fourSumHashMap(x);
-        }
+        switch(args[0]){
+            case "t_cubic":
+                y = threeSumCubic(x);
+                break;
+            case "t_quadratic":
+                y = threeSumQuadratic(x);
+                break;
+            case "t_hashmap":
+                y = threeSumHashMap(x);
+                break;
+            case "t_hashmap_nocomp":
+                y = threeSumHashMapNoComparison(x);
+                break;
+            case "f_cubic":
+                y = fourSumCubic(x);
+                isFourSum = true;
+                break;
+            case "f_quartic":
+                y = fourSumQuartic(x);
+                isFourSum = true;
+                break;
+            case "f_hashmap":
+                y = fourSumHashMap(x);
+                isFourSum = true;
+                break;
+            default:
+                System.out.println(y);
+            }
 
         if (y == null) {
-            System.out.println("null");
-        }
-        else {
-            System.out.println(String.format("%d %d %d", y[0], y[1], y[2]));
+            System.out.println(y);
+        } else {
+            if (!isFourSum) {
+                System.out.println(String.format("%d %d %d", y[0], y[1], y[2]));
+            } else {
+                System.out.println(String.format("%d %d %d %d", y[0], y[1], y[2], y[3]));
+            }
         }
     }
 }
