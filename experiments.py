@@ -61,11 +61,10 @@ INSTANCES: List[Tuple[str, str]] = [
     ('t_cubic', 'threefoursum/app/build/libs/app.jar'),
     ('t_quadratic', 'threefoursum/app/build/libs/app.jar'),
     ('t_hashmap', 'threefoursum/app/build/libs/app.jar'),
-    ('t_hashmap_nocomp', 'threefoursum/app/build/libs/app.jar')
 ]
 
 if __name__ == '__main__':
-    with open('results.csv', 'w') as f:
+    with open('results/results.csv', 'w') as f:
         writer = csv.DictWriter(f, fieldnames = ['algorithm', 'n', 'time'])
         writer.writeheader()
         for algorithm, jar in INSTANCES:

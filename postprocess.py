@@ -6,8 +6,7 @@ from typing import Dict, List
 import numpy as np # type: ignore
 import matplotlib.pyplot as plt # type: ignore
 
-# ALGORITHMS = ['cubic', 'quadratic', 'hashmap', 'hashmap_nocomp']
-ALGORITHMS = ['cubic', 'quadratic']
+ALGORITHMS = ['t_cubic', 't_quadratic', 't_hashmap']
 RESULTS_DIR = 'results'
 
 def read_results(filename: str) -> Dict[str, Dict[int, List[float]]]:
@@ -57,12 +56,13 @@ def plot_algorithms(res: Dict[str, np.ndarray], filename: str):
     ax.set_ylabel('Time (s)')
     ax.set_xscale('log')
     ax.set_yscale('log')
+
     ax.legend(ALGORITHMS)
 
     fig.savefig(RESULTS_DIR+"/"+filename)
 
 if __name__ == '__main__':
-    raw_results: Dict[str, Dict[int, List[float]]] = read_results('/results.csv')
+    raw_results: Dict[str, Dict[int, List[float]]] = read_results('results/results.csv')
     refined_results: Dict[str, np.ndarray] = dict()
     for algorithm in raw_results:
         refined_results[algorithm] = compute_mean_std(raw_results[algorithm])
@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
     # Generate a LaTeX table for each algorithm
     for algorithm in ALGORITHMS:
-        write_latex_tabular(refined_results[algorithm], f'/{RESULTS_DIR}/threesum_{algorithm}_tabular.tex')
+        write_latex_tabular(refined_results[algorithm], f"{RESULTS_DIR}/threesum_{algorithm}_tabular.tex")
 
     # Generate a plot of results
     plot_algorithms(refined_results, "plot")
