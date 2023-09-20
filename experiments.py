@@ -61,6 +61,9 @@ INSTANCES: List[Tuple[str, str]] = [
     ('t_cubic', 'threefoursum/app/build/libs/app.jar'),
     ('t_quadratic', 'threefoursum/app/build/libs/app.jar'),
     ('t_hashmap', 'threefoursum/app/build/libs/app.jar'),
+    # ('f_cubic', 'threefoursum/app/build/libs/app.jar'),
+    # ('f_quartic', 'threefoursum/app/build/libs/app.jar'),
+    # ('f_hashmap', 'threefoursum/app/build/libs/app.jar'),
 ]
 
 if __name__ == '__main__':

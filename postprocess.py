@@ -7,6 +7,7 @@ import numpy as np # type: ignore
 import matplotlib.pyplot as plt # type: ignore
 
 ALGORITHMS = ['t_cubic', 't_quadratic', 't_hashmap']
+#ALGORITHMS = ['f_cubic', 'f_quartic', 'f_hashmap']
 RESULTS_DIR = 'results'
 
 def read_results(filename: str) -> Dict[str, Dict[int, List[float]]]:
