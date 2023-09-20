@@ -167,7 +167,6 @@ public class ThreeFourSum {
                     if (k != null && l != null && k != 0 && l != 0 && j < k) {
                         int c = x[k];
                         int d = x[l];
-                        System.out.println("HERE");
                         return new int[] { a, b, c, d };
                     }
                 }
@@ -199,10 +198,6 @@ public class ThreeFourSum {
         if (args.length != 1) {
             throw new IllegalArgumentException("Supossed to find 1 element as argument");
         }
-
-        // if (!args[0].matches("[a-zA-Z]+$")) {
-        //     throw new IllegalArgumentException("Argument is supposed to be composed of characters");
-        // }
     }
 
     public static void main(String[] args) {
